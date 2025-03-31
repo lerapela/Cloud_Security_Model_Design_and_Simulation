@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.auth-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.auth-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.auth-body {
+    position: relative;
+    width: 720px;
+    max-height: 90vh;
+    background: #008173;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    overflow-y: auto;
+}
+
+.auth-content {
+    width: 100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.auth-subtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #008173;
+}
+
+.close-btn:hover {
+    background-color: #e9ecef;
+    color: #008173;
+    transform: rotate(90deg);
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+}
+
+.form-control:focus {
+    background-color: white;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+.form-label {
+    color: white;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.form-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+}
+
+.form-check-input {
+    margin-top: 0.25em;
+}
+
+.form-check-label {
+    color: white;
+}
+
+.btn-primary {
+    background-color: #005f56;
+    border: none;
+    padding: 10px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #004a43;
+}
+
+#login-link {
+    color: white;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+#login-link:hover {
+    color: #d1f7f1;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+    .auth-body {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .auth-content {
+        padding: 30px 20px;
+    }
+}
+
+/* Form validation styles */
+.is-invalid {
+    border: 1px solid #ff6b6b;
+}
+
+.invalid-feedback {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+
+/* Add to the end of your existing auth.css */
+
+/* Password toggle styles */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    cursor: pointer;
+    color: #008173;
+    background: none;
+    border: none;
+    z-index: 2;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.password-toggle:hover {
+    color: #005f56;
+}
+
+/* Validation styles */
+.is-valid {
+    border: 1px solid #28a745 !important;
+}
+
+/* Name validation icon */
+.validation-icon {
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    display: none;
+}
+
+.valid-icon {
+    color: #28a745;
+}
+
+.invalid-icon {
+    color: #dc3545;
+}
+

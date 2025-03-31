@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CloudVM Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/dash.css">
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h3>CloudVM</h3>
+            </div>
+<div class="user-profile">
+    <img src="https://ui-avatars.com/api/?name={{ user_data.fullname|urlencode }}&background=random" alt="User">
+    <h5 class="mb-1">{{ user_data.fullname }}</h5>
+    <p class="text-muted small">{{ session.user_email }}</p>
+</div>
+
+            <div class="sidebar-menu p-3">
+               <a href="#" class="active">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+              </a>
+            <a href="#" id="settingsLink">
+               <i class="fas fa-cog"></i> Settings
+            </a>
+         <a href="/logout">
+    <i class="fas fa-sign-out-alt"></i> Logout
+</a>
+         </div>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content w-100">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg mb-4">
+                <div class="container-fluid">
+                    <h4 class="mb-0">Virtual Machines Dashboard</h4>
+                    <div>
+                        <button class="btn btn-primary" id="newVmBtn">
+                            <i class="fas fa-plus me-2"></i> New VM
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Dashboard Stats -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-server text-primary fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0" id="totalVms">0</h5>
+                                <small class="text-muted">Total VMs</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-success bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-play text-success fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0" id="runningVms">0</h5>
+                                <small class="text-muted">Running</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-danger bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-stop text-danger fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0" id="stoppedVms">0</h5>
+                                <small class="text-muted">Stopped</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-info bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-memory text-info fs-4"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0" id="totalRam">0 GB</h5>
+                                <small class="text-muted">Total RAM</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VM List -->
+            <div class="card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0">Your Virtual Machines</h5>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-2" id="refreshBtn">
+                            <i class="fas fa-sync-alt me-1"></i> Refresh
+                        </button>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item active" href="#" data-filter="all">All VMs</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="running">Running</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="stopped">Stopped</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>OS</th>
+                                <th>CPU</th>
+                                <th>RAM</th>
+                                <th>Storage</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vmTableBody">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center" id="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Create VM Modal -->
+            <div class="modal fade" id="createVmModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create New Virtual Machine</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="createVmForm">
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">VM Name</label>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Operating System</label>
+                                        <select class="form-select" name="os" required>
+                                            <option value="ubuntu">Ubuntu</option>
+                                            <option value="debian">Debian</option>
+                                            <option value="windows">Windows</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">vCPU Cores</label>
+                                        <input type="number" class="form-control" name="cpu" min="1" max="8" value="2" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">RAM (GB)</label>
+                                        <input type="number" class="form-control" name="ram" min="1" max="32" value="4" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Storage (GB)</label>
+                                        <input type="number" class="form-control" name="storage" min="20" max="500" value="50" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" name="startAfterCreate" id="startAfterCreate" checked>
+                                    <label class="form-check-label" for="startAfterCreate">
+                                        Start VM immediately after creation
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Create VM</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+<!-- Password Reset Modal -->
+<div class="modal fade" id="passwordResetModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="passwordResetForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="newPassword" required minlength="8">
+                            <button class="btn btn-outline-secondary toggle-password" type="button">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength mt-2">
+                            <div class="password-strength-bar"></div>
+                        </div>
+                        <div class="form-text">Password must be at least 8 characters long</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <button class="btn btn-outline-secondary toggle-password" type="button">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">Passwords do not match</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../static/js/dash.js"></script>
+</body>
+</html>
