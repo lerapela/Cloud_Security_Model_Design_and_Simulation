@@ -234,6 +234,7 @@ def logout():
 
 
 @app.route('/register', methods=['POST'])
+@csrf.exempt
 def register():
     try:
         password = request.form.get('password')
