@@ -60,7 +60,7 @@ It manages VM provisioning and access using VirtualBox and Firebase for authenti
 You can clone the project using Git. Using PyCharm is recommended for ease of automatic virtual environment creation.
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
+https://github.com/lerapela/Cloud_Security_Model_Design_and_Simulation.git
 cd your-repo
 ```
 ### 2. Install Dependencies
