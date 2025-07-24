@@ -9,21 +9,7 @@
   <img src="https://img.shields.io/badge/Bootstrap-5.2-purple?logo=bootstrap" />
 </div>
 
-###
 
-<div align="center">
-  <a href="https://github.com/lerapela/Cloud_Security_Model_Design_and_Simulation">
-    <img src="https://img.shields.io/static/v1?message=Demo&logo=github&label=&color=181717&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="demo" />
-  </a>
-  <a href="#documentation">
-    <img src="https://img.shields.io/static/v1?message=Documentation&logo=gitbook&label=&color=3884FF&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="docs" />
-  </a>
-  <a href="https://github.com/lerapela/Cloud_Security_Model_Design_and_Simulation/issues">
-    <img src="https://img.shields.io/static/v1?message=Report Bug&logo=openbugbounty&label=&color=red&logoColor=white&labelColor=&style=for-the-badge" height="25" alt="report bug" />
-  </a>
-</div>
-
-###
 
 <h2 align="center">🌩️ Secure Multi-Tenant VM Management System</h2>
 
@@ -39,6 +25,9 @@
 - **Breach Simulation** - Built-in security testing endpoints
 - **Live Monitoring** - Resource usage tracking
 
+
+
+
 <div align="center">
   <!-- First Row -->
   <div>
@@ -52,4 +41,70 @@
     <img width="45%" src="https://github.com/user-attachments/assets/8e84a20a-8142-48a8-89f1-0a8b53210194" style="margin:10px" />
   </div>
 </div>
+
+
+
+
+<h4>Follow follow instructions to use the app</h4>
+
+
+A simple app that allows users to borrow virtual machines (VMs) on demand.  
+It manages VM provisioning and access using VirtualBox and Firebase for authentication and data storage.
+
+---
+
+## Follow the instructions below to set up and run the app locally:
+
+### 1. Clone the Repository
+
+You can clone the project using Git. Using PyCharm is recommended for ease of automatic virtual environment creation.
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+### 2. Install Dependencies
+Make sure your pip is up to date, then install required Python packages:
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+### 3. Setup Environment Variables
+Create a .env file in the root directory of the project and add your Firebase and other environment variables. Example .env content:
+
+```bash
+FIREBASE_API_KEY=A.................Vxg
+FIREBASE_AUTH_DOMAIN=example.firebaseapp.com
+FIREBASE_PROJECT_ID=example-4ff20
+FIREBASE_STORAGE_BUCKET=example-4ff20.appspot.com
+FIREBASE_MESSAGING_SENDER_ID=92......28
+FIREBASE_APP_ID=1:92.......28:web:113898..........362d
+FIREBASE_MEASUREMENT_ID=G-NB....S
+```
+
+### 4. Add Your Firebase Service Account Key
+Place your Firebase serviceAccountKey.json file in the root of the project directory.
+Important: This file is sensitive and should not be committed to Git. The .gitignore already excludes it.
+
+### 5. Configure Admin User in Firebase
+
+Manually add your admin user account in Firebase Authentication and Firestore.
+For example, an admin email could be:
+```bash
+admin@cloudvm.com
+```
+
+### 6. Prepare Your Local Machine
+
+Ensure VirtualBox is installed and properly configured on your machine.
+
+Make sure you have the required ISO files stored locally, for example:
+```bash
+C:\ISOs\ubuntu-24.04.1-desktop-amd64.iso
+C:\ISOs\kali-linux-2024.3-installer-amd64.iso
+C:\ISOs\Win10_22H2_English_x64v1.iso
+```
+
+### 7. Run the Application
 
